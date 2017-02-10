@@ -73,7 +73,7 @@ findPaths board tetra =
   let nextStates = legalPosibleMoves board tetra
       isFinished state = (fst $ mostRecentPosition state) == (nrows board)
       (finishedStates, pendingStates) = List.partition isFinished nextStates
-  in (concatMap (findPaths board) nextStates) ++ finishedStates
+  in (concatMap (findPaths board) pendingStates) ++ finishedStates
 
 ----------------
 
