@@ -15,7 +15,7 @@ solveState target lastUsed ns =
   in
     if (target `elem` possibleValues)
       then Win
-      else if (all (\n -> n > target) possibleValues)
+      else if (all (target <) possibleValues)
         then Loss
         else
           if any (== Loss) $ [solveState (target - n) (Just n) ns | n <- possibleValues]
@@ -23,4 +23,4 @@ solveState target lastUsed ns =
             else Loss
 
 main :: IO ()
-main = print $ take 3 $ filter (\(n, r) -> r == Loss) $ zip [1..] (map (\n -> solveState n Nothing [1..9]) [1..])
+main = print $ take 3 $ filter ((== Loss) . snd) $ zip [1..] (map (\n -> solveState n Nothing [1..9]) [1..])
